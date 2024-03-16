@@ -1,8 +1,14 @@
-import express from 'express'
+import express from "express";
+import mongoose from "mongoose";
+
 const app = express();
 
-app.use("/api",(req,res,next) =>{
-    res.send("Hello World");
-})
 
-app.listen(5000);
+
+mongoose
+  .connect(
+    "mongodb+srv://senapatismrutisudha:K1VnBKetVRxSWC9r@socialmediaapp.synh69f.mongodb.net/SocialMediaApp?retryWrites=true&w=majority&appName=SocialMediaApp"
+  )
+  .then(() => app.listen(5000))
+  .then(() => console.log("Connected to DB and Listening to localhost 5000"))
+  .catch((err) => console.log(err));
