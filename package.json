@@ -1,0 +1,15 @@
+{
+  "name": "social-media-app",
+  "version": "1.0.0",
+  "description": "A Socia Media app with help of nodeJs Express and Mongo",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
