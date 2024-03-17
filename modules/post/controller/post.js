@@ -206,6 +206,54 @@ export const getAllPosts = catchAsyncError(async (req, res,next) => {
     res.status(500).json({ message: "catch error", error });
   }
 })
+app.get('/posts/:userId/deleted', async (req, res) => {
+  try {
+      const { userId } = req.params;
+
+      // Check if userId is provided
+      if (!userId) {
+          return res.status(400).json({ error: 'userId is required' });
+      }
+
+      // Find soft-deleted posts by userId
+      const deletedPosts = await Post.find({ userId, isDeleted: true });
+
+      res.status(200).json(deletedPosts);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route to make a soft-deleted post available again
+app.put('/posts/:postId/restore', async (req, res) => {
+  try {
+      const { postId } = req.params;
+
+      // Check if postId is provided
+      if (!postId) {
+          return res.status(400).json({ error: 'postId is required' });
+      }
+
+      // Find the post by postId
+      const post = await Post.findById(postId);
+
+      // If the post doesn't exist or is already restored, return error
+      if (!post || !post.isDeleted) {
+          return res.status(404).json({ error: 'Post not found or already restored' });
+      }
+
+      // Update isDeleted to false to restore the post
+      post.isDeleted = false;
+      await post.save();
+
+      res.status(200).json({ message: 'Post restored successfully' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 export const getPostsOfUser = catchAsyncError(async (req, res,next) => {
   const { id } = req.params;
   const { page, size } = req.query;
