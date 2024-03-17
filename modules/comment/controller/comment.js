@@ -138,7 +138,7 @@ export const likeComment = catchAsyncError(async (req, res) => {
   }
 });
 export const replayOnComment = catchAsyncError(async (req, res) => {
-  console.log("mostafa");
+  console.log("smruti");
   const { id } = req.params;
   const { commentBody } = req.body;
   try {

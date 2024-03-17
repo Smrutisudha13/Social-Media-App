@@ -18,7 +18,7 @@ export async function myEmail(dest, subject, message, attachments) {
   });
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: `" Mostafa Mahmoud 👻" <${process.env.nodemailerEmail}>`, // sender address
+    from: `" Smruti Sudha 👻" <${process.env.nodemailerEmail}>`, // sender address
     to: dest, // list of receivers
     subject: subject, // Subject line
     text: "Hello world?", // plain text body

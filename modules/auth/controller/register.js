@@ -124,7 +124,7 @@ export const forgetPassword = catchAsyncError(async (req, res, next) => {
     return next(new AppError("user is not found ", 400));
   }
   let code = nanoid(5);
-  const token = jwt.sign({ email: user.email, id: user._id }, "mostafa@22");
+  const token = jwt.sign({ email: user.email, id: user._id }, "Smruti@22");
   const link = `${req.protocol}://${req.headers.host}/api/v1/auth/resetPassword/${token}`;
   sendConfirmation(
     user.email,
@@ -146,7 +146,7 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
   if (!token) {
     return next(new AppError("invalid token", 400));
   }
-  const decoded = jwt.verify(token, "mostafa@22");
+  const decoded = jwt.verify(token, "smruti@22");
   if (!decoded?.id) {
     return next(new AppError("invalid token  payload", 400));
   }

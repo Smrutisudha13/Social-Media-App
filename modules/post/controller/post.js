@@ -104,7 +104,7 @@ export const getPrivatePosts = catchAsyncError(async (req, res, next) => {
 export const likePost = catchAsyncError(async (req, res,next) => {
   const { id } = req.params;
   try {
-    console.log("mostafa");
+    console.log("smruti");
     const post = await postModel.findOneAndUpdate(
       {
         _id: id,
@@ -130,7 +130,7 @@ export const likePost = catchAsyncError(async (req, res,next) => {
 export const unLikePost = catchAsyncError(async (req, res,next) => {
   const { id } = req.params;
   try {
-    console.log("mostafa");
+    console.log("smruti");
     const post = await postModel.findOneAndUpdate(
       {
         _id: id,
