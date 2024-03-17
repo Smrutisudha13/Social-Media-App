@@ -127,6 +127,44 @@ export const updateProfile = catchAsyncError(async (req, res) => {
     res.status(500).json({ message: "catch error", error });
   }
 }) 
+app.post('/users/:userId/follow', async (req, res) => {
+  try {
+      const { userId } = req.params;
+      const { followerId } = req.body;
+
+      // Check if both userId and followerId exist
+      if (!userId || !followerId) {
+          return res.status(400).json({ error: 'Both userId and followerId are required' });
+      }
+
+      // Check if the user exists
+      const user = await User.findById(userId);
+      if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Check if the follower exists
+      const follower = await User.findById(followerId);
+      if (!follower) {
+          return res.status(404).json({ error: 'Follower not found' });
+      }
+
+      // Check if the follower is already following the user
+      if (user.followers.includes(followerId)) {
+          return res.status(400).json({ error: 'Follower is already following the user' });
+      }
+
+      // Add follower to the user's followers list
+      user.followers.push(followerId);
+      await user.save();
+
+      res.status(200).json({ message: 'User followed successfully' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 export const softDelete = catchAsyncError( async (req, res) => {
   try {
     const user = await userModel.updateOne(
